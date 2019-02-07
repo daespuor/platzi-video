@@ -26,7 +26,7 @@ var initialState=[
     }
 ]
 
-var reducer= function reducer(state,action){//Procesa la acción
+var reducer= function reducer(state,action){//Procesa la acción y modifica el Store
     var type=action.type;
     switch(type){
         case "ADD_SONG":
@@ -41,11 +41,12 @@ var reducer= function reducer(state,action){//Procesa la acción
 function render(){
     var playlist= store.getState(); // Consultar el State en el Store
     var $template=document.getElementById('playlist');
+    var $childNodes=$template.childNodes;
     $template.innerHTML='';
     playlist.forEach((item)=>{ //Adicionar a la pantalla
-        var $item= document.createElement('p');
-        $item.textContent=item.title;
-        $template.appendChild($item);
+            var $item= document.createElement('p');
+            $item.textContent=item.title;
+            $template.appendChild($item);
     });
     console.log(store.getState());
 }
@@ -56,7 +57,7 @@ var store=createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()//Enhance
 )
 
-store.subscribe(function handleUpdate(){
+store.subscribe(function handleUpdate(){//Modifica la vista segun cambia el estado en el Store
     render();
 })
 
