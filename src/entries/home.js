@@ -1,13 +1,18 @@
 import React from 'react'
 import {render} from 'react-dom'
 import Home from '../pages/containers/home'
-import data from '../api.json'
+import normalizedData from '../schemas';
+//import data from '../api.json';
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import reducer from '../reducers/data';
+console.log(normalizedData);
 const home= document.getElementById('home-container')
 const initialState={
-    data:{...data},
+    data:{
+        entities:normalizedData.entities,
+        categories:normalizedData.result.categories
+    },
     search:[]
 }
 const store= createStore(

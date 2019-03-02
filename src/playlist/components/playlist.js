@@ -1,7 +1,7 @@
 'use strict'
 
 import React  from 'react'
-import Media from './media'
+import MediaContainer from '../containers/media'
 import PropTypes from 'prop-types'
 import './playlist.css'
 
@@ -10,8 +10,8 @@ function Playlist(props) {
         return (
             <div className="Playlist">
                 {
-                    playlist.map((item)=>{
-                        return <Media {...item} key={item.id} handleClick={props.handleOpenModal}/>
+                    playlist.map((idMedia)=>{
+                        return <MediaContainer id={idMedia} key={idMedia} handleClick={props.handleOpenModal}/>
                     })
                 }
             </div>
