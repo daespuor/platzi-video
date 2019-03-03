@@ -7,6 +7,7 @@ import Modal from '../../widgets/components/modal'
 import ErrorHanlder from '../../errors/containers/error'
 import VideoPlayer from '../../player/containers/video-player'
 import {connect} from 'react-redux'
+import {List as list} from 'immutable'
 class Home extends Component{
     state={
         modalVisible:false,
@@ -45,12 +46,22 @@ class Home extends Component{
     }
 }
 function mapStateToProps(state,props){
-    const categories= state.data.categories.map((id)=>{
-        return state.data.entities.categories[id];
-    });
+    const categories= state.get('data').get('categories').map((id)=>{
+        return state.get('data').get('entities').get('categories').get(id);
+    })
+    let results=list();
+    const searchResult=state.get('data').get('search');
+    if(searchResult){
+       results= state.get('data').get('entities').get('media').filter((item)=>{
+            return item.get('author').toLowerCase().includes(searchResult.toLowerCase())
+                         || item.get('title').toLowerCase().includes(searchResult.toLowerCase());
+            
+        }).toList();    
+    }
+   
     return {
         categories,
-        search: state.search
+        search: results
     }
 }
 export default connect(mapStateToProps)(Home);

@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 class MediaContainer extends Component{
     render(){
         return (
-            <Media {...this.props.data} handleClick={this.props.handleClick}/>
+            <Media {...this.props.data.toJS()} handleClick={this.props.handleClick}/>
         )
     }
 }
 function mapStateToProps(state,props){
     return {
-        data:state.data.entities.media[props.id]
+        data:state.get('data').get('entities').get('media').get(props.id)
     }
 }
 MediaContainer.propTypes={
