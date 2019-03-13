@@ -8,21 +8,14 @@ import ErrorHanlder from '../../errors/containers/error'
 import VideoPlayer from '../../player/containers/video-player'
 import {connect} from 'react-redux'
 import {List as list} from 'immutable'
+import {openModal, closeModal} from '../../actions/'
 class Home extends Component{
-    state={
-        modalVisible:false,
-        media:{}
-    }
-    handleOpenModal= (media)=>{
-        this.setState({
-            modalVisible:true,
-            media
-        })
+    
+    handleOpenModal= (mediaId)=>{
+        this.props.dispatch(openModal(mediaId))
     }
     handleCloseModal= (event)=> {
-        this.setState({
-            modalVisible:false
-        })
+        this.props.dispatch(closeModal())
     }
     render(){
         return (
@@ -33,10 +26,10 @@ class Home extends Component{
                     handleOpenModal={this.handleOpenModal}
                     search={this.props.search}/>
                     {
-                        this.state.modalVisible &&
+                        this.props.modal.get('visible') &&
                         <ModalContainer>
                             <Modal handleClick={this.handleCloseModal}>
-                                <VideoPlayer autoplay {...this.state.media}/>
+                                <VideoPlayer autoplay mediaId={this.props.modal.get('mediaId')}/>
                             </Modal>
                         </ModalContainer>
                     }
@@ -61,7 +54,8 @@ function mapStateToProps(state,props){
    
     return {
         categories,
-        search: results
+        search: results,
+        modal:state.get('modal')
     }
 }
 export default connect(mapStateToProps)(Home);

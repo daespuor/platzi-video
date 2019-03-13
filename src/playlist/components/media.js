@@ -6,12 +6,12 @@ import './media.css'
 class Media extends PureComponent{
    
     handleClick=()=>{
-        const media={
+        /*const media={
             title:this.props.title,
             src:this.props.src
-        }
+        }*/
 
-        this.props.handleClick(media)
+        this.props.handleClick(this.props.id)
     }
     render(){
         let {title,cover}=this.props

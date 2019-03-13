@@ -10,6 +10,7 @@ import Utils from '../../utils'
 import Spinner from '../components/spinner'
 import VolumeButton from '../components/volume'
 import FullScreenButton from '../components/fullscreen'
+import {connect} from 'react-redux';
 class VideoPlayer extends Component{
     state={
         pause:true,
@@ -94,7 +95,7 @@ class VideoPlayer extends Component{
     render(){
         return (
             <VideoPlayerLayout setRef={this.setRefPlayer}>
-                <Title title={this.props.title}/>
+                <Title title={this.props.media.get('title')}/>
                 <VideoPlayerControls>
                     <PlayPause pause={this.state.pause} handleClick={this.handleToggle}/>
                     <Timer duration={Utils.formattedTime(this.state.duration)} currentTime={Utils.formattedTime(this.state.currentTime)}/>
@@ -107,7 +108,7 @@ class VideoPlayer extends Component{
                 <Video 
                     autoplay={this.props.autoplay}
                     pause={this.state.pause}
-                    src={this.props.src}
+                    src={this.props.media.get('src')}
                     handleMetadata={this.handleMetadata}
                     handleTimeUpdate={this.handleTimeUpdate}
                     handleSeeking={this.handleSeeking}
@@ -119,4 +120,10 @@ class VideoPlayer extends Component{
     }
 }
 
-export default VideoPlayer;
+function mapStateToProps(state,props){
+    return {
+        media:state.get('data').get('entities').get('media').get(props.mediaId)
+    }
+}
+
+export default connect(mapStateToProps)(VideoPlayer);
