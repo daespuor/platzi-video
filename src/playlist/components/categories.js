@@ -12,6 +12,9 @@ function Categories(props){
             <div className='Categories'>
                 <Search />
                 {
+                    props.isLoading?
+                    <p>Buscando tus videos favoritos...</p>
+                    :
                     props.search.map((item)=>{
                         return <Media {...item.toJS()} key={item.get('id')} handleClick={props.handleOpenModal}/> 
                     })
@@ -27,7 +30,7 @@ function Categories(props){
 }
 
 Categories.propTypes={
-    data:PropTypes.array.isRequired
+    data:PropTypes.object.isRequired
 }
 
 export default Categories

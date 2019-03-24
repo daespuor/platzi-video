@@ -7,7 +7,7 @@ const VolumeButton=(props)=>{
     return (
         <div className="Volume" >
             {   
-                props.mute?
+                props.volume<=0?
                 <button onClick={props.handleVolumeToggle} > 
                     <Mute
                         color={'white'}

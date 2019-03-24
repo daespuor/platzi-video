@@ -1,7 +1,7 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import VideoPlayerLayout from '../components/video-player-layout'
 import Video from '../components/video'
-import  Title from '../components/title'
+import Title from '../components/title'
 import PlayPause from '../components/play-pause'
 import Timer from '../components/timer'
 import ProgressBar from '../components/progressBar'
@@ -10,120 +10,129 @@ import Utils from '../../utils'
 import Spinner from '../components/spinner'
 import VolumeButton from '../components/volume'
 import FullScreenButton from '../components/fullscreen'
-import {connect} from 'react-redux';
-class VideoPlayer extends Component{
-    state={
-        pause:true,
-        duration:0,
-        currentTime:0,
-        loading: true,
-        mute:false
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+class VideoPlayer extends Component {
+    
+    handleToggle = () => {
+        this.props.actions.togglePlayPause();
     }
-    handleToggle=()=>{
-        this.setState((prevState)=>{
-           return  {
-                pause:!prevState.pause
-            }
-        })
-    }
-    handleVolumeToggle=()=>{
-        this.video.volume=this.state.mute
-        if(!this.state.mute){
+    handleVolumeToggle = () => {
+        if(this.props.volume>0){
             this.volumeButton.value=0
         }else{
-            this.volumeButton.value=1
+            this.volumeButton.value=this.props.prevVolume
         }
-        this.setState((prevState)=>{
-            return {
-                mute: !prevState.mute
+        this.props.actions.changeVolume(this.volumeButton.value,this.props.volume);
+    }
+    handleMetadata = (event) => {
+        this.video = event.target
+        this.props.actions.changeTimer(this.video.duration);
+    }
+    handleTimeUpdate = (event) => {
+        this.video = event.target
+        this.props.actions.changeProgressBar(this.video.currentTime);
+    }
+    handleProgress = (event) => {
+        const value = event.target.value;
+        this.props.actions.manualChangeProgressBar(value);
+    }
+    handleSeeking = (event) => {
+        this.props.actions.isSeeking(true);
+    }
+    handleSeeked = (event) => {
+        this.props.actions.isSeeking(false);
+    }
+    handleVolume = (event) => {
+        this.props.actions.changeVolume(event.target.value);
+    }
+
+    setRefVolume = (el) => {
+        this.volumeButton = el
+    }
+    handleToggleFullScreen = () => {
+        this.props.actions.fullScreen();
+    }
+
+    setRefPlayer = (element) => {
+        this.player = element
+    }
+    componentDidMount() {
+        this.props.actions.togglePlayPause(!this.props.autoplay);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.volume !== this.props.volume) {
+            this.video.volume = this.props.volume;
+        }
+        if(prevProps.changedTime!==this.props.changedTime){
+            this.video.currentTime = this.props.changedTime;
+        }
+        if(prevProps.fullScreen!==this.props.fullScreen){
+            if (!Utils.inFullScreen()) {
+                Utils.requestFullScreen(this.player)
+            } else {
+                Utils.closeFullScreen()
             }
-        })
-    }
-    handleMetadata=(event)=>{
-        this.video=event.target
-        this.setState({
-            duration:this.video.duration
-        })
-    }
-    handleTimeUpdate=(event)=>{
-        this.video=event.target
-        this.setState({
-            currentTime:this.video.currentTime
-        })
-    }
-    handleProgress=(event)=>{
-        const value= event.target.value;
-        this.video.currentTime=value;
-    }
-    handleSeeking=(event)=>{
-        this.setState({
-            loading: true
-        })
-    }
-    handleSeeked=(event)=>{
-        this.setState({
-            loading: false
-        })
-    }
-    handleVolume=(event)=>{
-        const value=event.target.value
-        this.video.volume=value
-    }
-
-    setRefVolume=(el)=>{
-        this.volumeButton=el
-    }
-
-    handleToggleFullScreen=()=>{
-        if(!Utils.inFullScreen()){
-            Utils.requestFullScreen(this.player)
-        }else{
-            Utils.closeFullScreen()
         }
     }
-    
-    setRefPlayer=(element)=>{
-        this.player=element
+    componentWillUnmount(){
+        this.props.actions.togglePlayPause(this.props.autoplay);
+        this.props.actions.changeVolume(1);
+        this.props.actions.changeProgressBar(0);
+        this.props.actions.changeTimer(0);
+        this.props.actions.manualChangeProgressBar(0);
+        this.props.actions.isSeeking(true);
+        this.props.actions.fullScreen(false);
     }
-    componentDidMount(){
-       
-        this.setState({
-            pause: !this.props.autoplay
-        })
-        
-    }
-    render(){
+
+    render() {
         return (
             <VideoPlayerLayout setRef={this.setRefPlayer}>
-                <Title title={this.props.media.get('title')}/>
+                <Title title={this.props.media.get('title')} />
                 <VideoPlayerControls>
-                    <PlayPause pause={this.state.pause} handleClick={this.handleToggle}/>
-                    <Timer duration={Utils.formattedTime(this.state.duration)} currentTime={Utils.formattedTime(this.state.currentTime)}/>
-                    <ProgressBar duration={this.state.duration} currentTime={this.state.currentTime} handleProgress={this.handleProgress}/>
-                    <VolumeButton handleVolume={this.handleVolume} handleVolumeToggle={this.handleVolumeToggle} 
-                        mute={this.state.mute} setRef={this.setRefVolume}/>
-                    <FullScreenButton handleClick={this.handleToggleFullScreen}/>
+                    <PlayPause pause={this.props.pause} handleClick={this.handleToggle} />
+                    <Timer duration={Utils.formattedTime(this.props.duration)} currentTime={Utils.formattedTime(this.props.currentTime)} />
+                    <ProgressBar duration={this.props.duration} currentTime={this.props.currentTime} handleProgress={this.handleProgress} />
+                    <VolumeButton handleVolume={this.handleVolume} handleVolumeToggle={this.handleVolumeToggle}
+                        volume={this.props.volume} setRef={this.setRefVolume} />
+                    <FullScreenButton handleClick={this.handleToggleFullScreen} />
                 </VideoPlayerControls>
-                <Spinner active={this.state.loading}/> 
-                <Video 
+                <Spinner active={this.props.loading} />
+                <Video
                     autoplay={this.props.autoplay}
-                    pause={this.state.pause}
+                    pause={this.props.pause}
                     src={this.props.media.get('src')}
                     handleMetadata={this.handleMetadata}
                     handleTimeUpdate={this.handleTimeUpdate}
                     handleSeeking={this.handleSeeking}
                     handleSeeked={this.handleSeeked}
                     handlePlay={this.handleSeeked}
-                />                
+                />
             </VideoPlayerLayout>
         )
     }
 }
 
-function mapStateToProps(state,props){
+function mapStateToProps(state, props) {
+   
     return {
-        media:state.get('data').get('entities').get('media').get(props.mediaId)
+        media: state.get('data').get('entities').get('media').get(props.mediaId),
+        pause: state.get('player').get('pause'),
+        volume:state.get('player').get('volume'),
+        duration:state.get('player').get('duration'),
+        currentTime:state.get('player').get('currentTime'),
+        changedTime:state.get('player').get('changedTime'),
+        loading:state.get('player').get('loading'),
+        fullScreen:state.get('player').get('fullScreen'),
+        prevVolume:state.get('player').get('prevVolume'),
     }
 }
 
-export default connect(mapStateToProps)(VideoPlayer);
+function mapDispatchToProps(dispatcher) {
+    return {
+        actions: bindActionCreators(actions, dispatcher)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoPlayer);
