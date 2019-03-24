@@ -1,0 +1,15 @@
+.MyPlayList{
+    color: #fff;
+    font-weight: 400;
+    padding: 10px 10px;
+    text-transform: capitalize;
+}
+
+.MyPlayList-Element{
+    margin-top: 20px;
+    display: flex;
+}
+
+.MyPlayList-Element-Index{
+    margin-right: 20px;
+}

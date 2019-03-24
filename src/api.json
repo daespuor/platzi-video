@@ -49,6 +49,53 @@
     },
     {
       "id": "2",
+      "description": "Los últimos trailers",
+      "title": "Para ver",
+      "playlist": [
+        {
+          "title": "Game of Thrones",
+          "author": "HBO",
+          "type": "video",
+          "cover": "./images/covers/got.jpg",
+          "src": "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+          "id": "16"
+        },
+        {
+          "title": "Avenger Endgame",
+          "author": "Marvel/Disney",
+          "type": "video",
+          "cover": "./images/covers/avengers.jpg",
+          "src": "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+          "id": "17"
+        },
+        {
+          "title": "Stranger Things 3",
+          "author": "Netflix",
+          "type": "video",
+          "cover": "./images/covers/stranger.jpg",
+          "src": "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+          "id": "18"
+        },
+        {
+          "title": "Detective Pikachu",
+          "author": "Pokemón",
+          "type": "video",
+          "cover": "./images/covers/pikachu.jpg",
+          "src": "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+          "id": "19"
+        },
+        {
+          "title": "Spiderman Far Away From Home",
+          "author": "Marvel/Disney",
+          "type": "video",
+          "cover": "./images/covers/spiderman.jpg",
+          "src": "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+          "id": "20"
+        }
+      ]
+    },
+    {
+      "id": "3",
       "description": "Lo mejor para concentrarte",
       "title": "Para programar",
       "playlist": [
@@ -95,7 +142,7 @@
       ]
     },
     {
-      "id": "3",
+      "id": "4",
       "description": "Si no te queda de otra",
       "title": "Regueton",
       "playlist": [

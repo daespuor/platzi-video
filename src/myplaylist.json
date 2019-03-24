@@ -1,0 +1,51 @@
+{
+    "categories":[
+        {
+            "id": "4",
+            "description": "Tu playlist",
+            "title": "Mi Playlist",
+            "playlist": [
+              {
+                "title": "Stranger Things 3 | Official Trailer [HD] | Netflix",
+                "id":11
+              },
+              {
+                "title": "Foo Figthers - The pretender",
+                "id":12
+              },
+              {
+                "title": "The Science of Superstitions",
+                "id":13
+              },
+              {
+                "title": "Que es Bitcoin",
+                "id":14
+              },
+              {
+                "title": "One More Time",
+                "id":15
+              },
+              {
+                "title": "Stranger Things 3 | Official Trailer [HD] | Netflix",
+                "id":16
+              },
+              {
+                "title": "Foo Figthers - The pretender",
+                "id":17
+              },
+              {
+                "title": "The Science of Superstitions",
+                "id":18
+              },
+              {
+                "title": "Que es Bitcoin",
+                "id":19
+              },
+              {
+                "title": "One More Time",
+                "id":20
+              }
+            ]
+          }
+    ]
+}

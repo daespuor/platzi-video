@@ -11,6 +11,9 @@ const SearchForm = (props)=>(
             onChange={props.handleChange}
             ref={props.setInput}
         />
+        <div className="Search-Icon">
+            <i className="fas fa-search"></i>
+        </div>
     </form>
 )
 

@@ -1,0 +1,13 @@
+.User{
+    display:flex;
+}
+.User-Icon img{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin-right: 10px;
+}
+
+.User-Name{
+    align-self: center;
+}

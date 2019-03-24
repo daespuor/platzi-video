@@ -3,3 +3,13 @@
     padding: 20px 0 20px 20px;
     background: white;
 }
+
+.Categories-Tools{
+    display: flex;
+    width: 100%;
+}
+
+.Categories-Tools-User{
+    margin-left: 500px;
+    align-self: center;
+}

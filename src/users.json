@@ -1,0 +1,34 @@
+{
+    "users":[
+        {
+            "id":1,
+            "name":"Daniel Puerta",
+            "icon":"./images/users/danielPuerta.jpg",
+            "currentUser":true
+        },
+        {
+            "id":2,
+            "name":"Angela Valderrama",
+            "icon":"./images/users/angelaValderrama.jpg",
+            "currentUser":false
+        },
+        {
+            "id":3,
+            "name":"Pedro Quintero",
+            "icon":"./images/users/pedroQuintero.jpg",
+            "currentUser":false
+        },
+        {
+            "id":4,
+            "name":"Sabina Martinez",
+            "icon":"./images/users/sabinaMartinez.jpg",
+            "currentUser":false
+        },
+        {
+            "id":5,
+            "name":"Casimiro Ruiz",
+            "icon":"./images/users/casimiroRuiz.jpg",
+            "currentUser":false
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+.FriendList{
+    color: #fff;
+    font-weight: 400;
+    padding: 10px 5px;
+    text-transform: capitalize;
+}
+
+.FriendList .User{
+    margin-top: 20px;
+}
