@@ -9,7 +9,11 @@ import {
     CHANGE_PROGRESS_BAR,
     MANUAL_CHANGE_PROGRESS_BAR,
     IS_SEEKING,
-    FULL_SCREEN
+    FULL_SCREEN,
+    ADD_MEDIA,
+    SHOW_FORM,
+    IS_LOADING_FORM,
+    UPDATE_ID
 }
 from '../action-types';
 export function openModal(mediaId) {
@@ -105,5 +109,45 @@ export function fullScreen(value){
         payload:{
             value
         }
+    }
+}
+export function addMediaAsync(newmedia){
+    return dispatch=>{
+        dispatch(toggleForm());
+        dispatch(isLoadingForm(true));
+        setTimeout(()=>{
+            dispatch(addMedia(newmedia));
+            dispatch(isLoadingForm(false));
+        },5000)
+        dispatch(updateId());
+    }
+}
+export function isLoadingForm(value){
+    return {
+        type:IS_LOADING_FORM,
+        payload:{
+            value
+        }
+    }
+}
+export function addMedia(newmedia){
+    return {
+        type:ADD_MEDIA,
+        payload:{
+            newmedia
+        }
+    }
+}
+export function toggleForm(value){
+    return {
+        type:SHOW_FORM,
+        payload:{
+            value
+        }
+    }
+}
+export function updateId(){
+    return {
+        type:UPDATE_ID
     }
 }

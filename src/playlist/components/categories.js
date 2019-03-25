@@ -5,6 +5,7 @@ import './categories.css'
 import Search from '../../widgets/containers/search'
 import Media from './media';
 import User from '../../users/components/user';
+import AddMedia from './addMedia';
 function Categories(props){
     
         const categories= props.data
@@ -17,6 +18,12 @@ function Categories(props){
                         <User {...props.user.toJS()}/>
                     </div>
                 </div>
+                <AddMedia 
+                    categories={categories}
+                    handleSubmit={props.handleFormSubmit}
+                    handleShow={props.handleShowForm}
+                    showForm={props.showForm}
+                    isLoading={props.isLoadingForm}/>
                 {
                     props.isLoading?
                     <p>Buscando tus videos favoritos...</p>
@@ -37,7 +44,11 @@ function Categories(props){
 
 Categories.propTypes={
     data:PropTypes.object.isRequired,
-    user:PropTypes.object.isRequired
+    user:PropTypes.object.isRequired,
+    handleFormSubmit:PropTypes.func.isRequired,
+    handleShowForm:PropTypes.func.isRequired,
+    showForm:PropTypes.bool.isRequired,
+    isLoadingForm:PropTypes.bool.isRequired
 }
 
 export default Categories

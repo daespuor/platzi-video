@@ -6,6 +6,7 @@
     width: 260px;
     vertical-align: top;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
   
   .Media:hover .Media-cover {

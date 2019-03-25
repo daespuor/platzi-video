@@ -1,0 +1,40 @@
+.AddMedia-Button{
+    padding: .375rem .75rem;
+    color: #fff;
+    background-color: #0069d9;
+    border: 0;
+    border-radius: .25rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    line-height: 1.5;
+}
+
+.AddMedia-Form{
+    padding: 20px 40px;
+    display:flex;
+    flex-direction: column;
+}
+
+.AddMedia-FormControl{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.AddMedia-Form label{
+    padding: 10px;
+    font-weight: 400;
+}
+.AddMedia-Form input,.AddMedia-Form select{
+    padding: 10px;
+    border-radius: 5px; 
+    border: 1px solid #8e9090;
+    width: 70%;
+}
+.AddMedia-Form #add{
+    background-color:#28a745;
+}
+.AddMedia-Form #close{
+    background-color:#8e9090;
+}

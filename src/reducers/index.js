@@ -4,6 +4,7 @@ import isLoading from './is-loading';
 import player from './player';
 import myplaylist from './my-playlist';
 import users from './users';
+import form from './form';
 import {combineReducers} from 'redux-immutable';
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
     isLoading,
     player,
     myplaylist,
-    users
+    users,
+    form
 });

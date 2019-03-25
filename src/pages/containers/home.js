@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import { List as list,  Map as map } from 'immutable'
 import * as actions from '../../actions/'
 import { bindActionCreators } from 'redux'
+import Media from '../../model/media';
 class Home extends Component {
 
     handleOpenModal = (mediaId) => {
@@ -17,6 +18,22 @@ class Home extends Component {
     }
     handleCloseModal = (event) => {
         this.props.actions.closeModal()
+    }
+    handleFormSubmit=(event)=>{
+        event.preventDefault();
+        const form =new FormData(event.target);
+        const media=new Media(
+            form.get('title'),
+            form.get('author'),
+            form.get('category'),
+            form.get('url'),
+            form.get('image'),
+            "video"
+        )
+        this.props.actions.addMediaAsync(media);
+    }
+    handleShowForm=()=>{
+        this.props.actions.toggleForm();
     }
     render() {
         return (
@@ -29,7 +46,11 @@ class Home extends Component {
                         handleOpenModal={this.handleOpenModal}
                         search={this.props.search}
                         isLoading={this.props.isLoading}
-                        user={this.props.user} />
+                        user={this.props.user}
+                        handleFormSubmit={this.handleFormSubmit}
+                        handleShowForm={this.handleShowForm}
+                        showForm={this.props.showForm}
+                        isLoadingForm={this.props.isLoadingForm} />
                     {
                         this.props.modal.get('visible') &&
                         <ModalContainer>
@@ -71,6 +92,8 @@ function mapStateToProps(state, props) {
         myplaylist: state.get('myplaylist').get('data'),
         modal: state.get('modal'),
         isLoading: state.get('isLoading').get('active'),
+        isLoadingForm:state.get('form').get('isLoading'),
+        showForm:state.get('form').get('active'),
         friendsList,
         user
     }
