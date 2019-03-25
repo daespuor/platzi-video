@@ -1,5 +1,7 @@
 const path = require('path')
 const webpack= require('webpack')
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const TerserJSPlugin = require("terser-webpack-plugin")
 const MiniCssExtractPlugin= require('mini-css-extract-plugin')
 module.exports={
     entry:{platzivideo:path.join(__dirname,'/index.js')},
@@ -24,12 +26,29 @@ module.exports={
                     MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
+            },
+            {
+                test:/\.(png|jpg|svg|gif)$/,
+                use:{
+                    loader:'url-loader',
+                    options:{}
+                }
             }
         ]
     },
     plugins:[
         new MiniCssExtractPlugin({
             filename:'css/[name][hash].css'
+        }),
+        new HtmlWebpackPlugin({
+            template:'./index.html'
         })
-    ]
+    ],
+    optimization: {
+        minimizer: [
+            new TerserJSPlugin({}),
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
+
 }
